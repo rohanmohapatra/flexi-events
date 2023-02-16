@@ -6,4 +6,4 @@
   - Mohapatra, Rohan
   - Ho, Ken
 
-# Kwangoh - Contribution testing
+Kwangoh - Contribution tested
