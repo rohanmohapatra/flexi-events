@@ -1,10 +1,13 @@
 import './App.css';
 
+import React from 'react';
+import HomePage from './pages/Home';
+
 function App() {
   return (
-    <div className="App">
-      <h1>Hello CS-157C</h1>
-    </div>
+    <React.Fragment>
+      <HomePage />
+    </React.Fragment>
   );
 }
 
