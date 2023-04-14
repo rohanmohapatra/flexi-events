@@ -9,7 +9,7 @@ export class CassandraService {
     this.client = new Client({
       contactPoints: [process.env.CASSANDRA_SERVER],
       keyspace: process.env.CASSANDRA_KEYSPACE,
-      protocolOptions: { port: parseInt(process.env.CASSANDRA_PORT) },
+      protocolOptions: { port: parseInt(process.env.CASSANDRA_PORT) ?? 9042 },
       localDataCenter: 'datacenter1',
       authProvider: new auth.PlainTextAuthProvider(
         process.env.CASSANDRA_USERNAME,
