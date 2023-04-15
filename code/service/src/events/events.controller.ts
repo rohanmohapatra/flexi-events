@@ -47,6 +47,6 @@ export class EventsController {
 
   @Post(':eventId/addKeywords')
   addKeywords(@Param('eventId') eventId: string, @Body() keywords: Keywords) {
-    return 'Ok';
+    this.eventsService.addKeywords(UUID.fromString(eventId), keywords.keywords);
   }
 }

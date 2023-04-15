@@ -13,4 +13,8 @@ export class EventsService {
   async addEvent(event: any) {
     return await this.eventsRepository.addEvent(event);
   }
+
+  async addKeywords(eventId: UUID, keywords: string[]) {
+    return await this.eventsRepository.addKeywords(eventId, keywords);
+  }
 }

@@ -31,4 +31,12 @@ export class EventsRepository implements OnModuleInit {
   async addEvent(event: Event) {
     return await this.eventMapper.insert(event);
   }
+
+  async addKeywords(eventId: UUID, keywords: string[]) {
+    const event = await this.getEvent(eventId);
+    await this.eventMapper.update({
+      eventId: eventId,
+      keywords: event.keywords.concat(keywords),
+    });
+  }
 }
