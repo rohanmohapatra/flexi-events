@@ -4,9 +4,15 @@ import { AppService } from './app.service';
 import { CassandraModule } from './cassandra/cassandra.module';
 import { RegistrationModule } from './registration/registration.module';
 import { ConfigModule } from '@nestjs/config';
+import { EventsModule } from './events/events.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), CassandraModule, RegistrationModule],
+  imports: [
+    ConfigModule.forRoot(),
+    CassandraModule,
+    RegistrationModule,
+    EventsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

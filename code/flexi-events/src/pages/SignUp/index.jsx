@@ -1,15 +1,11 @@
 import React from 'react';
 import { Box, Grid, TextField, Typography, Button} from '@mui/material';
-// import {Typography} from '@mui/material';
-// import { Button } from '@mui/material';
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Paper } from '@mui/material';
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
-import Avatar from '@mui/material/Avatar';
-
 
 function SignUpPage() {
     const handleSubmit = (event) => {
