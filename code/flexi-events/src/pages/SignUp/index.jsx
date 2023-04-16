@@ -7,8 +7,6 @@ import Link from "@mui/material/Link";
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 
-
-
 function SignUpPage() {
     const handleSubmit = (event) => {
         event.preventDefault();

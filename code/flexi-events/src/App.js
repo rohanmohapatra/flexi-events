@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 
 import HomePage from './pages/Home';
 import AttendeesPage from './pages/Attendees';
@@ -10,7 +11,14 @@ import SignUpPage from './pages/SignUp';
 
 function App() {
   return (
-    <HomePage />
+    <>
+      <Routes>
+        <Route path='/' element={<HomePage />}></Route>
+        <Route path='signup' element={<SignUpPage />}></Route>
+        <Route path='attendees' element={<AttendeesPage />}></Route>
+        <Route path='organizers' element={<OrganizersPage />}></Route>
+      </Routes>
+    </>
   );
 }
 
