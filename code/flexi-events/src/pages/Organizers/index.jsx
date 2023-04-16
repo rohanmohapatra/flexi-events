@@ -1,10 +1,11 @@
 import React from 'react';
+import { Typography } from '@mui/material';
 
 function OrganizersPage() {
     return (
-        <React.Fragment>
-                
-        </React.Fragment>
+        <>
+            <Typography color='yellow'>Organizer's page is currently under development</Typography>  
+        </>
     )
 }
 

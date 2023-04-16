@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {ThemeProvider, createTheme} from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material';
+import { BrowserRouter } from 'react-router-dom';
 import { create } from '@mui/material/styles/createTransitions';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,7 +21,9 @@ const theme_1 = createTheme({
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme_1}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
 );
