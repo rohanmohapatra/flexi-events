@@ -1,10 +1,8 @@
 import React from 'react';
+
 import { Box, Grid } from '@mui/material';
 import {Typography} from '@mui/material';
 import { Button } from '@mui/material';
-
-
-// testing signup page
 
 function SignUpPage() {
 
