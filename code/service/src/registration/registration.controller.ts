@@ -9,7 +9,9 @@ import {
 import { RegistrationService } from './registration.service';
 import { ParticipantDTO } from 'src/dto/participant.dto';
 import { UUID } from '../types';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('registration')
 @Controller('events/:eventId/participants')
 export class RegistrationController {
   constructor(private readonly registrationService: RegistrationService) {}
