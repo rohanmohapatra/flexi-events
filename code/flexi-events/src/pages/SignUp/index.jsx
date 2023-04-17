@@ -110,11 +110,12 @@ function SignUpPage() {
                                 
                                 
                             </Grid>
-                       
+                            <Grid item>
+                                <a color="black" href="https://www.sjsu.edu/cs/">Terms and Conditions</a>
+                            </Grid>    
+                        
                         </Grid>
 
-                       
-                        
                         <Button
                         type="submit"
                         fullWidth
