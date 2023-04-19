@@ -15,4 +15,4 @@
 
 ## API Configuration
 
-[https://earnest-pika-8b1b40.netlify.app/](https://earnest-pika-8b1b40.netlify.app/)
+[https://flexievents-api.netlify.app/](https://flexievents-api.netlify.app/)
