@@ -6,9 +6,9 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { EventDTO } from 'src/dto/event.dto';
-import { Keywords } from 'src/dto/keywords.dto';
-import { UUID } from 'src/types';
+import { EventDTO } from 'dto/event.dto';
+import { Keywords } from 'dto/keywords.dto';
+import { UUID } from 'types';
 import { EventsService } from './events.service';
 import { ApiTags } from '@nestjs/swagger';
 

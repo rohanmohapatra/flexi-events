@@ -5,6 +5,7 @@ import { CassandraModule } from './cassandra/cassandra.module';
 import { RegistrationModule } from './registration/registration.module';
 import { ConfigModule } from '@nestjs/config';
 import { EventsModule } from './events/events.module';
+import { UserModule } from 'users/user.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { EventsModule } from './events/events.module';
     CassandraModule,
     RegistrationModule,
     EventsModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

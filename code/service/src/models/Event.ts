@@ -1,4 +1,4 @@
-import { UUID } from 'src/types';
+import { UUID } from 'types';
 
 export interface Event {
   eventId: UUID;

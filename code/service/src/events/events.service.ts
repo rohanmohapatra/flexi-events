@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UUID } from 'src/types';
+import { UUID } from 'types';
 import { EventsRepository } from './events.repository';
 
 @Injectable()
