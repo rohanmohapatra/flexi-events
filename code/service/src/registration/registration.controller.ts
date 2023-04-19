@@ -7,7 +7,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { RegistrationService } from './registration.service';
-import { ParticipantDTO } from 'src/dto/participant.dto';
+import { ParticipantDTO } from 'dto/participant.dto';
 import { UUID } from '../types';
 import { ApiTags } from '@nestjs/swagger';
 

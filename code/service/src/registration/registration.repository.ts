@@ -1,8 +1,8 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { mapping } from 'cassandra-driver';
-import { CassandraService } from 'src/cassandra/cassandra.service';
-import { Participant } from 'src/models/Participant';
-import { UUID } from 'src/types';
+import { CassandraService } from 'cassandra/cassandra.service';
+import { Participant } from 'models/Participant';
+import { UUID } from 'types';
 
 @Injectable()
 export class RegistrationRepository implements OnModuleInit {
