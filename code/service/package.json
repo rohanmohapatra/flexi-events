@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "deploy:swagger": "redocly build-docs swagger-spec.json -o swagger/index.html",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -25,6 +26,7 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.3.0",
+    "@redocly/cli": "^1.0.0-beta.125",
     "bcrypt": "^5.1.0",
     "cassandra-driver": "^4.6.4",
     "jsonwebtoken": "^9.0.0",
