@@ -28,6 +28,7 @@ root.render(
   </React.StrictMode>
 );
 
+//profile testing
 
 // app.get('/profile', (req, res) => {
 //   sqlConn.query(`SELECT * FROM flexi_user WHERE username = '${req.session.username}';`, function (err, qres_user, fields) {
@@ -51,7 +52,35 @@ root.render(
 // });
 
 
+// signup testing
 
+// app.get('/signup', (req, res) => {
+//   res.render('pages/signup')
+// });
+
+// app.post('/signup', urlParser,
+//   body('username').isLength({ min: 1, max: 45 }).withMessage('Username can not be empty!'),
+//   body('email').isEmail().withMessage('Must be email!'),
+//   body('password').notEmpty().withMessage('Password cannot be empty!'),
+//   body('confpassword').notEmpty().custom((pwrd, { req }) => pwrd === req.body.password).withMessage('Both passwords must match!')
+//   , (req, res) => {
+//       var errs = validationResult(req);
+//       if (req.body.signin) {
+//           res.redirect('/signin');
+//       } else {
+//           if (!errs.isEmpty()) {
+//               res.render('./pages/error', {
+//                   error: "Something went wrong with signing up! Check all fields are correct."
+//               })
+
+//           } else {
+//               bcrypt.hash(req.body.password, 10, (err, hash) => {
+//                   sqlConn.query(`INSERT INTO flexi_user (username, email, password)VALUES ('${req.body.username}', '${req.body.email}', '${hash}');`);
+//               })
+//               res.redirect('/signin')
+//           }
+//       }
+//   });
 
 
 
