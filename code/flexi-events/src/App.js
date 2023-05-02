@@ -8,6 +8,7 @@ import OrganizersPage from "./pages/Organizers";
 import SignUpPage from "./pages/SignUp";
 import { AuthProvider } from "components/AuthProvider/AuthProvider";
 import CreateProfile from "pages/CreateProfile";
+import Calendar from "pages/Calendar";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="signup" element={<SignUpPage />}></Route>
         <Route path="attendees" element={<AttendeesPage />}></Route>
         <Route path="organizers" element={<OrganizersPage />}></Route>
+        <Route path="calendar" element={<Calendar />}></Route>
         <Route path="createProfile" element={<CreateProfile />}></Route>
       </Routes>
     </AuthProvider>
