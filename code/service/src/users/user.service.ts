@@ -6,15 +6,15 @@ import { UserInterface } from './user.interface';
 export class UserService implements UserInterface {
   constructor(private readonly userRepository: UserRepository) {}
 
-  changePassword(username: string, password: string, oldPassword: string) {
-    return this.userRepository.changePassword(username, password, oldPassword);
+  changePassword(email: string, password: string, oldPassword: string) {
+    return this.userRepository.changePassword(email, password, oldPassword);
   }
 
-  async login(username: string, password: string) {
-    return this.userRepository.login(username, password);
+  async login(email: string, password: string) {
+    return this.userRepository.login(email, password);
   }
 
-  async signUp(username: string, password: string) {
-    return this.userRepository.signUp(username, password);
+  async signUp(email: string, password: string) {
+    return this.userRepository.signUp(email, password);
   }
 }

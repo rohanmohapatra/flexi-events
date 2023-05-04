@@ -24,16 +24,19 @@ export class EventsRepository implements OnModuleInit {
       .forModel('Event');
   }
 
-  async getEvent(eventId: UUID) {
-    return await (await this.eventMapper.find({ eventId })).first();
+  async getEvents(email: string) {
+    return await (await this.eventMapper.find({ email: email })).toArray();
+  }
+  async getEvent(eventId: UUID, email: string) {
+    return await (await this.eventMapper.find({ eventId, email })).first();
   }
 
   async addEvent(event: Event) {
     return await this.eventMapper.insert(event);
   }
 
-  async addKeywords(eventId: UUID, keywords: string[]) {
-    const event = await this.getEvent(eventId);
+  async addKeywords(eventId: UUID, email: string, keywords: string[]) {
+    const event = await this.getEvent(eventId, email);
     await this.eventMapper.update({
       eventId: eventId,
       keywords: event.keywords.concat(keywords),

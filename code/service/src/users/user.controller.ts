@@ -7,30 +7,31 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from 'models/User';
-import * as jwt from 'jsonwebtoken';
 import { ApiTags } from '@nestjs/swagger';
 import { ChangePasswordDTO } from 'dto/user.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @ApiTags('auth')
 @Controller('auth')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private jwtService: JwtService,
+  ) {}
 
-  private generateAccessToken(username: string) {
-    return jwt.sign({ username: username }, process.env.JWT_TOKEN_SECRET, {
-      expiresIn: '24000s',
-    });
+  private async generateAccessToken(email: string) {
+    return await this.jwtService.signAsync({ email: email });
   }
 
   @Post('login')
   async login(@Body() userBody: User) {
     const isLoginSuccessful = await this.userService.login(
-      userBody.username,
+      userBody.email,
       userBody.password,
     );
 
     if (isLoginSuccessful) {
-      return { accessToken: this.generateAccessToken(userBody.username) };
+      return { accessToken: await this.generateAccessToken(userBody.email) };
     }
     throw new ForbiddenException('Password is incorrect');
   }
@@ -38,20 +39,20 @@ export class UserController {
   @Post('signup')
   async signUp(@Body() userBody: User) {
     const isSignUpSuccessful = await this.userService.signUp(
-      userBody.username,
+      userBody.email,
       userBody.password,
     );
 
     if (isSignUpSuccessful) {
       return { message: 'SignUp successful' };
     }
-    throw new BadRequestException('Username is already present');
+    throw new BadRequestException('Email is already present');
   }
 
   @Post('changePassword')
   async changePassword(@Body() userBody: ChangePasswordDTO) {
     const isPasswordChangeSuccessful = await this.userService.changePassword(
-      userBody.username,
+      userBody.email,
       userBody.password,
       userBody.oldPassword,
     );

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { AuthContext } from "./AuthContext";
-import { fakeAuth } from "services/fake.auth";
+import { login } from "services/auth";
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = React.useState(undefined);
@@ -13,11 +13,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const handleLogin = async (data) => {
-    console.log(data);
-    const token = await fakeAuth();
-    setToken(token);
-    localStorage.setItem("auth.token", token);
-    return true;
+    const token = await login(data);
+    console.log(token);
+    if (token) {
+      setToken(token);
+      localStorage.setItem("auth.token", token);
+      return true;
+    }
+    return false;
   };
 
   const handleLogout = () => {

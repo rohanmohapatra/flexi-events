@@ -37,8 +37,8 @@ export class UserRepository implements OnModuleInit, UserInterface {
     }
   }
 
-  async login(username: string, password: string) {
-    const user = (await this.userMapper.find({ username })).first();
+  async login(email: string, password: string) {
+    const user = (await this.userMapper.find({ email })).first();
     if (!user) {
       return false;
     }
@@ -46,25 +46,21 @@ export class UserRepository implements OnModuleInit, UserInterface {
     return isLoginSuccessful;
   }
 
-  async signUp(username: string, password: string) {
-    const user = (await this.userMapper.find({ username })).first();
+  async signUp(email: string, password: string) {
+    const user = (await this.userMapper.find({ email })).first();
     if (user) {
       return false;
     }
     const passwordHash = await bcrypt.hash(password, this.saltRounds);
     const response = await this.userMapper.insert({
-      username,
+      email,
       password: passwordHash,
     });
     return response.wasApplied;
   }
 
-  async changePassword(
-    username: string,
-    password: string,
-    oldPassword: string,
-  ) {
-    const user = (await this.userMapper.find({ username })).first();
+  async changePassword(email: string, password: string, oldPassword: string) {
+    const user = (await this.userMapper.find({ email })).first();
     if (!user) {
       return false;
     }
@@ -83,7 +79,7 @@ export class UserRepository implements OnModuleInit, UserInterface {
 
     const passwordHash = await bcrypt.hash(password, this.saltRounds);
     const response = await this.userMapper.update({
-      username,
+      email,
       password: passwordHash,
       oldPassword: user.password,
     });

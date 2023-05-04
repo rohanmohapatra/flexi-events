@@ -8,4 +8,5 @@ export interface Event {
   startDate: string;
   endDate: string;
   eventLink: string;
+  email: string;
 }
