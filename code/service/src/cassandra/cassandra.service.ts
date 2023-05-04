@@ -9,7 +9,6 @@ export class CassandraService {
   mapper: mapping.Mapper;
   private createClient(type: ConnectType) {
     if (type === 'astra') {
-      console.log(__dirname);
       this.client = new Client({
         cloud: {
           secureConnectBundle: './secure-connect-flexievents.zip',

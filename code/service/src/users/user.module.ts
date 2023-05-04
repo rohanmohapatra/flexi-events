@@ -6,8 +6,6 @@ import { UserRepository } from './user.repository';
 import { JwtModule } from '@nestjs/jwt';
 import { JWT_TOKEN_SECRET } from 'auth/authConstants';
 
-console.log('*******', process.env.JWT_TOKEN_SECRET);
-
 @Module({
   imports: [
     CassandraModule,
