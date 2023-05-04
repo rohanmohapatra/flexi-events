@@ -5,11 +5,13 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
-import { create } from "@mui/material/styles/createTransitions";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const darkTheme = createTheme({
+  typography: {
+    fontFamily: ["Raleway", "sans-serif"].join(","),
+  },
   palette: {
     mode: "dark",
     primary: {
