@@ -27,6 +27,7 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     const result = await onLogin(data);
+    console.log(result);
     setSnackbar({ open: true, type: result ? "success" : "failure" });
   };
 

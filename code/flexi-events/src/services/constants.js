@@ -1,1 +1,1 @@
-export const backendApi = "localhost:4000";
+export const backendApi = "http://localhost:4000";

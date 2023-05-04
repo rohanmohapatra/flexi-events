@@ -19,6 +19,9 @@ const darkTheme = createTheme({
       light: "#ccccff",
       dark: "#624cab",
     },
+    common: {
+      black: "#130303",
+    },
   },
 });
 
@@ -55,7 +58,6 @@ root.render(
 //   })
 // });
 
-
 // signup testing
 
 // app.get('/signup', (req, res) => {
@@ -85,8 +87,6 @@ root.render(
 //           }
 //       }
 //   });
-
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

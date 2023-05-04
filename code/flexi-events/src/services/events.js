@@ -11,9 +11,22 @@ export const createEvent = async (event) => {
   }
 };
 
-export const getEvent = async (eventId) => {
+export const getEvent = async (eventId, token) => {
   const uri = `${backendApi}/events/${eventId}`;
-  const response = await axios.get(uri);
+  const response = await axios.get(uri, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (response.status === 200) {
+    return response.data;
+  }
+};
+
+export const getEvents = async (token) => {
+  const uri = `${backendApi}/events`;
+  const response = await axios.get(uri, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   if (response.status === 200) {
     return response.data;
