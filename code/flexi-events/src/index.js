@@ -16,6 +16,8 @@ const darkTheme = createTheme({
     mode: "dark",
     primary: {
       main: "#FFFFFF",
+      light: "#ccccff",
+      dark: "#624cab",
     },
   },
 });
