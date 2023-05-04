@@ -1,17 +1,11 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core';
-import { Box } from '@mui/material';
-import { Paper } from '@mui/material';
-import { Typography } from '@mui/material';
-import {Button} from '@mui/material';
+import React from "react";
+import { Box } from "@mui/material";
+import { Paper } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Button } from "@mui/material";
 
 function Event() {
-
-  return (
-      <Button>
-        This is an Event Card
-      </Button>
-  )
+  return <Button>This is an Event Card</Button>;
 }
 
 export default Event;
