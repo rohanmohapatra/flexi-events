@@ -1,5 +1,5 @@
 export interface UserInterface {
-  login(username: string, password: string);
-  signUp(username: string, password: string);
-  changePassword(username: string, password: string, oldPassword: string);
+  login(email: string, password: string);
+  signUp(email: string, password: string);
+  changePassword(email: string, password: string, oldPassword: string);
 }

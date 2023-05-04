@@ -6,15 +6,19 @@ import { EventsRepository } from './events.repository';
 export class EventsService {
   constructor(private readonly eventsRepository: EventsRepository) {}
 
-  async getEvent(eventId: UUID) {
-    return await this.eventsRepository.getEvent(eventId);
+  async getEvents(email: string) {
+    return await this.eventsRepository.getEvents(email);
+  }
+
+  async getEvent(eventId: UUID, email: string) {
+    return await this.eventsRepository.getEvent(eventId, email);
   }
 
   async addEvent(event: any) {
     return await this.eventsRepository.addEvent(event);
   }
 
-  async addKeywords(eventId: UUID, keywords: string[]) {
-    return await this.eventsRepository.addKeywords(eventId, keywords);
+  async addKeywords(eventId: UUID, email: string, keywords: string[]) {
+    return await this.eventsRepository.addKeywords(eventId, email, keywords);
   }
 }
