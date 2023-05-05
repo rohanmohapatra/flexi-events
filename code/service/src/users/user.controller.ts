@@ -1,65 +1,39 @@
 import {
-  BadRequestException,
   Body,
   Controller,
-  ForbiddenException,
   Post,
+  UseGuards,
+  Request,
+  Get,
+  Param,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from 'models/User';
 import { ApiTags } from '@nestjs/swagger';
-import { ChangePasswordDTO } from 'dto/user.dto';
-import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from 'auth/auth.guard';
 
-@ApiTags('auth')
-@Controller('auth')
+@ApiTags('users')
+@Controller('users')
 export class UserController {
-  constructor(
-    private readonly userService: UserService,
-    private jwtService: JwtService,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
-  private async generateAccessToken(email: string) {
-    return await this.jwtService.signAsync({ email: email });
+  @UseGuards(AuthGuard)
+  @Post('createProfile')
+  async createProfile(@Body() userBody: User, @Request() request) {
+    this.userService.addUserProfile({ ...userBody, email: request.user.email });
+    return {
+      message: 'Profile created',
+    };
   }
 
-  @Post('login')
-  async login(@Body() userBody: User) {
-    const isLoginSuccessful = await this.userService.login(
-      userBody.email,
-      userBody.password,
-    );
-
-    if (isLoginSuccessful) {
-      return { accessToken: await this.generateAccessToken(userBody.email) };
-    }
-    throw new ForbiddenException('Password is incorrect');
+  @Get(':email')
+  async getProfile(@Param('email') email: string) {
+    return await this.userService.getUserProfile(email);
   }
 
-  @Post('signup')
-  async signUp(@Body() userBody: User) {
-    const isSignUpSuccessful = await this.userService.signUp(
-      userBody.email,
-      userBody.password,
-    );
-
-    if (isSignUpSuccessful) {
-      return { message: 'SignUp successful' };
-    }
-    throw new BadRequestException('Email is already present');
-  }
-
-  @Post('changePassword')
-  async changePassword(@Body() userBody: ChangePasswordDTO) {
-    const isPasswordChangeSuccessful = await this.userService.changePassword(
-      userBody.email,
-      userBody.password,
-      userBody.oldPassword,
-    );
-
-    if (isPasswordChangeSuccessful) {
-      return { message: 'Pasword change successful' };
-    }
-    throw new BadRequestException('Could not change password');
+  @UseGuards(AuthGuard)
+  @Get('me')
+  async getMe(@Request() request) {
+    return await this.userService.getUserProfile(request.user.email);
   }
 }
