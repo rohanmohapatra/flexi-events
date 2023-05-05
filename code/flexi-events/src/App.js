@@ -15,6 +15,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import Login from "pages/Login";
 import Dashboard from "pages/Dashboard";
 import { ProtectedRoute } from "components/AuthProvider/ProtectedRoute";
+import VirtualEvent from "pages/VirtualEvent";
 
 function App() {
   return (
@@ -36,7 +37,15 @@ function App() {
                 <Dashboard />
               </ProtectedRoute>
             }
-          ></Route>
+          />
+          <Route
+            path="events/:eventId"
+            element={
+              <ProtectedRoute>
+                <VirtualEvent />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </LocalizationProvider>
     </AuthProvider>

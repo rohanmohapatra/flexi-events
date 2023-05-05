@@ -1,13 +1,17 @@
 import axios from "axios";
 import { backendApi } from "./constants";
 
-export const createEvent = async (event) => {
+export const createEvent = async (event, token) => {
   const uri = `${backendApi}/events/createEvent`;
   const payload = event;
-  const response = await axios.post(uri, payload);
+  const response = await axios.post(uri, payload, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   if (response.status === 201) {
-    return response.data.eventId;
+    return { type: true, message: response.data.eventId };
+  } else {
+    return { type: false, message: "Could not create event" };
   }
 };
 

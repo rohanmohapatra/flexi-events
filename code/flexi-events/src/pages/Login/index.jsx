@@ -81,7 +81,7 @@ const Login = () => {
           </Link>
           <Snackbar
             open={snackbar.open}
-            autoHideDuration={6000}
+            autoHideDuration={3000}
             onClose={handleSnackbarClose}
           >
             {snackbar.type === "success" ? (
