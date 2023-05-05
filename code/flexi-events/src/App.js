@@ -16,6 +16,7 @@ import Login from "pages/Login";
 import Dashboard from "pages/Dashboard";
 import { ProtectedRoute } from "components/AuthProvider/ProtectedRoute";
 import VirtualEvent from "pages/VirtualEvent";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 function App() {
   return (
