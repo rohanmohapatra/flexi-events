@@ -1,20 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
-import { UserInterface } from './user.interface';
+import { User } from 'models/User';
 
 @Injectable()
-export class UserService implements UserInterface {
+export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  changePassword(email: string, password: string, oldPassword: string) {
-    return this.userRepository.changePassword(email, password, oldPassword);
+  async addUserProfile(user: User) {
+    return await this.userRepository.addUserProfile(user);
   }
 
-  async login(email: string, password: string) {
-    return this.userRepository.login(email, password);
-  }
-
-  async signUp(email: string, password: string) {
-    return this.userRepository.signUp(email, password);
+  async getUserProfile(email: string) {
+    return await this.userRepository.getUserProfile(email);
   }
 }
