@@ -17,6 +17,7 @@ import Dashboard from "pages/Dashboard";
 import { ProtectedRoute } from "components/AuthProvider/ProtectedRoute";
 import VirtualEvent from "pages/VirtualEvent";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import Profile from "pages/Profile";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="createProfile" element={<CreateProfile />}></Route>
           <Route path="createEvent" element={<CreateEvent />}></Route>
           <Route path="login" element={<Login />}></Route>
+          <Route path="profile" element={<Profile />}></Route>
           <Route
             path="dashboard"
             element={
