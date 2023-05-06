@@ -21,15 +21,23 @@ import FlexiEventsTitle from "components/FlexiEventsTitle";
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
-
-
+// import { CassandraService } from '../../../../service/src/cassandra/cassandra.service';
 
 import { ThemeProvider, createTheme } from "@mui/material";
 
+    
+    const user = {
+        username: 'Younki',
+        email: 'kang@gmail.com',
+        profilePic: 'https://profile.jpg'
+    };
 
 
   const Profile = () => {
+    
+
     return (
+        
       <Layout>
         <Stack
           width="100%"
@@ -38,6 +46,11 @@ import { ThemeProvider, createTheme } from "@mui/material";
           color="white"
           spacing={7}
         >
+
+        <Typography variant="h5" component="h2">
+            {user.username} {user.email}
+          </Typography>
+
           <Typography variant="h5" component="h2">
             YOUR PROFILE
           </Typography>
@@ -45,6 +58,22 @@ import { ThemeProvider, createTheme } from "@mui/material";
             <Avatar sx={{ width: "7rem", height: "7rem" }}></Avatar>
             
           </Stack>
+
+          <Typography variant="h5" component="h2">
+            Name 
+          </Typography>
+          <Typography variant="h5" component="h2">
+            Email
+          </Typography>
+          <Typography variant="h5" component="h2">
+            Phone Number
+          </Typography>
+          <Typography variant="h5" component="h2">
+            Role
+          </Typography>
+          <Typography variant="h5" component="h2">
+            Pronouns
+          </Typography>
         </Stack>
       </Layout>
     );
