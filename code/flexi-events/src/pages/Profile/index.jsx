@@ -26,11 +26,7 @@ import ReactDOM from "react-dom/client";
 import { ThemeProvider, createTheme } from "@mui/material";
 
     
-    const user = {
-        username: 'Younki',
-        email: 'kang@gmail.com',
-        profilePic: 'https://profile.jpg'
-    };
+    
 
 
   const Profile = () => {
