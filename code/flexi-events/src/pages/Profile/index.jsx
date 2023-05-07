@@ -11,7 +11,7 @@ import {
   CircularProgress,
   } from "@mui/material";
 import Layout from "components/Layout";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -24,6 +24,9 @@ import ReactDOM from "react-dom/client";
 // import { CassandraService } from '../../../../service/src/cassandra/cassandra.service';
 
 import { ThemeProvider, createTheme } from "@mui/material";
+import { getMe } from "services/users";
+import { useAuth } from "components/AuthProvider/AuthContext";
+import SignedInLayout from "components/SignedInLayout";
 
     
     
@@ -31,10 +34,14 @@ import { ThemeProvider, createTheme } from "@mui/material";
 
   const Profile = () => {
     
-
+    const { getToken } = useAuth();
+    const [user, setUser] = useState({});
+    useEffect(() => {
+      getMe(getToken()).then((userData) => setUser(userData));
+    }, [getToken]);
     return (
         
-      <Layout>
+      <SignedInLayout>
         <Stack
           width="100%"
           height="100%"
@@ -44,7 +51,7 @@ import { ThemeProvider, createTheme } from "@mui/material";
         >
 
         <Typography variant="h5" component="h2">
-            {user.username} {user.email}
+             {user.email}
           </Typography>
 
           <Typography variant="h5" component="h2">
@@ -55,23 +62,26 @@ import { ThemeProvider, createTheme } from "@mui/material";
             
           </Stack>
 
-          <Typography variant="h5" component="h2">
-            Name 
+          <Typography sx={{ fontSize:20, color:"red" }}variant="h5" component="h2">
+            Name {" :"}
+          <Typography sx={{ fontSize:15, color:"white" }}variant="h5" component="span">
+            {user.name}
+          </Typography>
           </Typography>
           <Typography variant="h5" component="h2">
-            Email
+            Email  {user.email}
           </Typography>
           <Typography variant="h5" component="h2">
-            Phone Number
+          {user.phoneNumber}
           </Typography>
           <Typography variant="h5" component="h2">
-            Role
+            Role {user.role}
           </Typography>
           <Typography variant="h5" component="h2">
-            Pronouns
+            Pronouns {user.pronouns}
           </Typography>
         </Stack>
-      </Layout>
+      </SignedInLayout>
     );
   };
   
