@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import SignInToZoom from "components/SignedInLayout/SignInToZoom";
 
 const SignedInLayout = ({ children }) => {
   const pages = ["dashboard", "profile"];
@@ -66,6 +67,7 @@ const SignedInLayout = ({ children }) => {
                 {page}
               </Button>
             ))}
+            <SignInToZoom />
           </Stack>
         </Toolbar>
       </AppBar>
