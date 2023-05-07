@@ -28,8 +28,4 @@ export class ZoomContoller {
       `http://localhost:3000/zoomAuth?accessToken=${data['access_token']}`,
     );
   }
-
-  @UseGuards(AuthGuard)
-  @Get('createMeeting')
-  async createMeeting(@Request() request) {}
 }
