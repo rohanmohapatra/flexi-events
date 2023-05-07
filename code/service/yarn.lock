@@ -954,6 +954,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nestjs/axios@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@nestjs/axios@npm:2.0.0"
+  peerDependencies:
+    "@nestjs/common": ^7.0.0 || ^8.0.0 || ^9.0.0
+    axios: ^1.3.1
+    reflect-metadata: ^0.1.12
+    rxjs: ^6.0.0 || ^7.0.0
+  checksum: d346b371b296a090eab229bf5a935956413ebd8ce1b2b83874c66c2a80636375b01b5c67ed70ac295bae7b33138d35b4d6616510b007e87bb1d5190d6ec2aadc
+  languageName: node
+  linkType: hard
+
 "@nestjs/cli@npm:^9.0.0":
   version: 9.3.0
   resolution: "@nestjs/cli@npm:9.3.0"
@@ -1594,7 +1606,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/qs@npm:*":
+"@types/qs@npm:*, @types/qs@npm:^6":
   version: 6.9.7
   resolution: "@types/qs@npm:6.9.7"
   checksum: 6ad8b468d122ef64878bef150efb428532cc8768ec66fac61b9abb1ff0f30520d86138290e753d5f179e6fd01ba3a51c56e2e0a7a6e40b5d1cfd8b701f70367d
@@ -2247,6 +2259,17 @@ __metadata:
   version: 0.4.0
   resolution: "asynckit@npm:0.4.0"
   checksum: e4d1381289f9effe69a4dbc18e8b4e2059113dfb23634d0f4064226042870dbc53175fbf261f982d055fa2952163a8b7608781ea58314a17bb6a2cd6815af4f1
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "axios@npm:1.4.0"
+  dependencies:
+    follow-redirects: "npm:^1.15.0"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 391f7fdb89b0c09d72b825eccf396b3b501c569e8dab759155c4f84b47bb4004432b99d8686758493a3b1d1673c5efd0e4b948108bb0d3de74ca1a8d30877aa6
   languageName: node
   linkType: hard
 
@@ -3783,6 +3806,16 @@ __metadata:
   version: 3.2.7
   resolution: "flatted@npm:3.2.7"
   checksum: d57a559a56f8743f48067b992e70f222921bec6656de4617ee60dab5e531c2aeba67ace287965b759cca80fa0d3f0c7ffc39341ccc9bc874594f4b73c0fea48c
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.0":
+  version: 1.15.2
+  resolution: "follow-redirects@npm:1.15.2"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 930171f8b81bf00e9368df4b17f3b835934762d51192632af53a51a8a608d5510a1ffbc6da5761dce9996cdbd750740490ca844320e5ff11cdaf2329a5a69647
   languageName: node
   linkType: hard
 
@@ -6165,6 +6198,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "participation-service@workspace:."
   dependencies:
+    "@nestjs/axios": "npm:^2.0.0"
     "@nestjs/cli": "npm:^9.0.0"
     "@nestjs/common": "npm:^9.0.0"
     "@nestjs/config": "npm:^2.3.1"
@@ -6179,9 +6213,11 @@ __metadata:
     "@types/express": "npm:^4.17.13"
     "@types/jest": "npm:29.2.4"
     "@types/node": "npm:18.11.18"
+    "@types/qs": "npm:^6"
     "@types/supertest": "npm:^2.0.11"
     "@typescript-eslint/eslint-plugin": "npm:^5.0.0"
     "@typescript-eslint/parser": "npm:^5.0.0"
+    axios: "npm:^1.4.0"
     bcrypt: "npm:^5.1.0"
     cassandra-driver: "npm:^4.6.4"
     eslint: "npm:^8.0.1"
@@ -6189,6 +6225,7 @@ __metadata:
     eslint-plugin-prettier: "npm:^4.0.0"
     jest: "npm:29.3.1"
     prettier: "npm:^2.3.2"
+    qs: "npm:^6.11.1"
     reflect-metadata: "npm:^0.1.13"
     rxjs: "npm:^7.2.0"
     source-map-support: "npm:^0.5.20"
@@ -6436,6 +6473,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: 0bba2ef7c8374b384e94e4477764e53df66fcdfa7d19e2c4a063cb39eea979c139ce13981970223665422e72b7d149609a927046e2e40ab340b84d91af082591
+  languageName: node
+  linkType: hard
+
 "pump@npm:^3.0.0":
   version: 3.0.0
   resolution: "pump@npm:3.0.0"
@@ -6469,7 +6513,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.11.0":
+"qs@npm:^6.11.0, qs@npm:^6.11.1":
   version: 6.11.1
   resolution: "qs@npm:6.11.1"
   dependencies:

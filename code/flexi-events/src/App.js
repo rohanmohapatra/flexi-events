@@ -18,6 +18,7 @@ import { ProtectedRoute } from "components/AuthProvider/ProtectedRoute";
 import VirtualEvent from "pages/VirtualEvent";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Profile from "pages/Profile";
+import ZoomAuth from "pages/ZoomAuth";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="createEvent" element={<CreateEvent />}></Route>
           <Route path="login" element={<Login />}></Route>
           <Route path="profile" element={<Profile />}></Route>
+          <Route path="zoomAuth" element={<ZoomAuth />}></Route>
           <Route
             path="dashboard"
             element={

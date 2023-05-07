@@ -73,4 +73,7 @@ export class EventsController {
       keywords.keywords,
     );
   }
+
+  @Post(':eventId/createMeeting')
+  createMeeting(@Param('eventId') eventId: string, @Request() request) {}
 }

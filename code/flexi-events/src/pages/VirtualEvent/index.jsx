@@ -1,26 +1,35 @@
 import { Button, Paper, Stack, Typography } from "@mui/material";
+import { useAuth } from "components/AuthProvider/AuthContext";
 import SignedInLayout from "components/SignedInLayout";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { getEvent } from "services/events";
+import { CreateMeetingLink } from "./CreateMeetingLink";
 
 const VirtualEvent = () => {
   const { eventId } = useParams();
+  const { getToken } = useAuth();
+  const [event, setEvent] = useState({});
+  useEffect(() => {
+    getEvent(eventId, getToken()).then((eventData) => setEvent(eventData));
+  }, [eventId, getToken]);
   return (
     <SignedInLayout>
-      <Stack>
-        <Paper
-          sx={{
-            width: "40rem",
-            padding: "2rem",
-            bgcolor: "white",
-            color: "black",
-          }}
-        >
-          <Typography variant="h4" fontWeight="600">
-            This is a demo event with id {eventId}
-          </Typography>
-        </Paper>
-        {/* <Paper
+      {event && (
+        <Stack>
+          <Paper
+            sx={{
+              width: "40rem",
+              padding: "2rem",
+              bgcolor: "white",
+              color: "black",
+            }}
+          >
+            <Typography variant="h4" fontWeight="600">
+              {event.eventTitle}
+            </Typography>
+          </Paper>
+          {/* <Paper
           sx={{
             width: "45rem",
             padding: "2rem",
@@ -29,68 +38,70 @@ const VirtualEvent = () => {
               "linear-gradient(to bottom, rgba(7, 1, 1, 1) 35%, rgba(80, 80, 100, 1) 100%)",
           }}
         > */}
-        <Stack spacing={2} color="white" paddingY="3rem">
-          <Stack direction="row" justifyContent="flex-start" spacing={2}>
-            <Typography
-              variant="h6"
-              fontWeight="500"
-              component="div"
-              width="7rem"
-              color="primary.light"
-            >
-              Description:
-            </Typography>
-            <Typography variant="body2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse mollis est ac blandit egestas. Proin ac vulputate
-              libero. Vestibulum ante ipsum primis in faucibus orci luctus et
-              ultrices posuere cubilia curae; Nunc ac nisl vel odio tincidunt
-              malesuada. Ut in feugiat metus, a ultrices sem. Aenean vel nunc
-              tincidunt, lacinia odio ac, condimentum elit.
-            </Typography>
+          <Stack spacing={2} color="white" paddingY="3rem">
+            <Stack direction="row" justifyContent="flex-start" spacing={2}>
+              <Typography
+                variant="h6"
+                fontWeight="500"
+                component="div"
+                width="7rem"
+                color="primary.light"
+              >
+                Description:
+              </Typography>
+              <Typography variant="body2">{event.eventDescription}</Typography>
+            </Stack>
+            <Stack direction="row" justifyContent="flex-start" spacing={2}>
+              <Typography
+                variant="h6"
+                fontWeight="500"
+                component="div"
+                width="7rem"
+                color="primary.light"
+              >
+                Start Date:
+              </Typography>
+              <Typography variant="body2">
+                {new Date(event.startDate).toString()}
+              </Typography>
+            </Stack>
+            <Stack direction="row" justifyContent="flex-start" spacing={2}>
+              <Typography
+                variant="h6"
+                fontWeight="500"
+                component="div"
+                width="7rem"
+                color="primary.light"
+              >
+                End Date:
+              </Typography>
+              <Typography variant="body2">
+                {new Date(event.endDate).toString()}
+              </Typography>
+            </Stack>
+            <Stack direction="row" justifyContent="flex-start" spacing={2}>
+              <Typography
+                variant="h6"
+                fontWeight="500"
+                component="div"
+                width="7rem"
+                color="primary.light"
+              >
+                Event Link:
+              </Typography>
+              {event.eventLink != null ? (
+                <Typography variant="body2">url.com</Typography>
+              ) : (
+                <CreateMeetingLink />
+              )}
+            </Stack>
           </Stack>
           <Stack direction="row" justifyContent="flex-start" spacing={2}>
-            <Typography
-              variant="h6"
-              fontWeight="500"
-              component="div"
-              width="7rem"
-              color="primary.light"
-            >
-              Start Date:
-            </Typography>
-            <Typography variant="body2">May 4, 2023</Typography>
+            <Button variant="outlined">Delete event</Button>
           </Stack>
-          <Stack direction="row" justifyContent="flex-start" spacing={2}>
-            <Typography
-              variant="h6"
-              fontWeight="500"
-              component="div"
-              width="7rem"
-              color="primary.light"
-            >
-              End Date:
-            </Typography>
-            <Typography variant="body2">May 6, 2023</Typography>
-          </Stack>
-          <Stack direction="row" justifyContent="flex-start" spacing={2}>
-            <Typography
-              variant="h6"
-              fontWeight="500"
-              component="div"
-              width="7rem"
-              color="primary.light"
-            >
-              Event Link:
-            </Typography>
-            <Typography variant="body2">url.com</Typography>
-          </Stack>
+          {/* </Paper> */}
         </Stack>
-        <Stack direction="row" justifyContent="flex-start" spacing={2}>
-          <Button variant="outlined">Delete event</Button>
-        </Stack>
-        {/* </Paper> */}
-      </Stack>
+      )}
     </SignedInLayout>
   );
 };

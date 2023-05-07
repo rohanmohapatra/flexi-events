@@ -17,6 +17,11 @@ import { AuthGuard } from 'auth/auth.guard';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Get('')
+  async getUsers() {
+    return { message: 'Hello from Users' };
+  }
+
   @UseGuards(AuthGuard)
   @Post('createProfile')
   async createProfile(@Body() userBody: User, @Request() request) {
@@ -26,13 +31,13 @@ export class UserController {
     };
   }
 
-  @Get(':email')
+  @Get('profile/:email')
   async getProfile(@Param('email') email: string) {
     return await this.userService.getUserProfile(email);
   }
 
+  @Get('/me')
   @UseGuards(AuthGuard)
-  @Get('me')
   async getMe(@Request() request) {
     return await this.userService.getUserProfile(request.user.email);
   }
