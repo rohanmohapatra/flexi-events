@@ -42,4 +42,8 @@ export class EventsRepository implements OnModuleInit {
       keywords: event.keywords.concat(keywords),
     });
   }
+
+  async getAllEvents() {
+    return await (await this.eventMapper.findAll()).toArray();
+  }
 }

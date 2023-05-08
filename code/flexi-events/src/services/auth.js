@@ -13,7 +13,6 @@ export const login = async (payload) => {
 };
 
 export const signup = async (payload) => {
-  console.log(payload);
   const uri = `${backendApi}/auth/signup`;
   const response = await axios.post(uri, payload);
 

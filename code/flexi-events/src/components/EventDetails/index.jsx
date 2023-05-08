@@ -8,7 +8,7 @@ const EventDetails = (props) => {
   const { eventId, eventTitle, eventDescription, creatorName } = props;
   const navigate = useNavigate();
   return (
-    <Card sx={{ bgcolor: "white" }} key={eventId}>
+    <Card sx={{ bgcolor: "white", height: "8rem" }} key={eventId}>
       <CardActionArea onClick={() => navigate(`/events/${eventId}`)}>
         <CardContent>
           <Typography
@@ -28,7 +28,7 @@ const EventDetails = (props) => {
           >
             {creatorName}
           </Typography>
-          <Typography variant="body2" color={grey[600]}>
+          <Typography variant="h6" noWrap color={grey[600]}>
             {eventDescription}
           </Typography>
         </CardContent>

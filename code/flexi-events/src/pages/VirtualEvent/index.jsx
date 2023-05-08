@@ -1,20 +1,40 @@
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useAuth } from "components/AuthProvider/AuthContext";
 import SignedInLayout from "components/SignedInLayout";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getEvent } from "services/events";
+import { getEvent, getRegistrants } from "services/events";
 import { CreateMeetingLink } from "./CreateMeetingLink";
 
 const VirtualEvent = () => {
   const { eventId } = useParams();
   const { getToken } = useAuth();
-  const [event, setEvent] = useState({});
+  const [event, setEvent] = useState({
+    eventTitle: "",
+    eventDescription: "",
+    startDate: "",
+    endDate: "",
+    eventLink: "",
+  });
+
+  const [registrants, setRegistrants] = useState([]);
   useEffect(() => {
     getEvent(eventId, getToken()).then((eventData) => setEvent(eventData));
   }, [eventId, getToken]);
+
+  useEffect(() => {
+    getRegistrants(eventId).then((data) => setRegistrants(data));
+  }, [eventId]);
   return (
-    <SignedInLayout>
+    <SignedInLayout height="100vh">
       {event && (
         <Stack>
           <Paper
@@ -38,8 +58,71 @@ const VirtualEvent = () => {
               "linear-gradient(to bottom, rgba(7, 1, 1, 1) 35%, rgba(80, 80, 100, 1) 100%)",
           }}
         > */}
-          <Stack spacing={2} color="white" paddingY="3rem">
-            <Stack direction="row" justifyContent="flex-start" spacing={2}>
+          <Stack direction="row" justifyContent="space-between">
+            <Stack spacing={2} color="white" paddingY="3rem">
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <Typography
+                  variant="h6"
+                  fontWeight="500"
+                  component="div"
+                  width="7rem"
+                  color="primary.light"
+                >
+                  Description:
+                </Typography>
+                <Typography variant="body2">
+                  {event.eventDescription}
+                </Typography>
+              </Stack>
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <Typography
+                  variant="h6"
+                  fontWeight="500"
+                  component="div"
+                  width="7rem"
+                  color="primary.light"
+                >
+                  Start Date:
+                </Typography>
+                <Typography variant="body2">
+                  {new Date(event.startDate).toString()}
+                </Typography>
+              </Stack>
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <Typography
+                  variant="h6"
+                  fontWeight="500"
+                  component="div"
+                  width="7rem"
+                  color="primary.light"
+                >
+                  End Date:
+                </Typography>
+                <Typography variant="body2">
+                  {new Date(event.endDate).toString()}
+                </Typography>
+              </Stack>
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <Typography
+                  variant="h6"
+                  fontWeight="500"
+                  component="div"
+                  width="7rem"
+                  color="primary.light"
+                >
+                  Event Link:
+                </Typography>
+                {event.eventLink != null ? (
+                  <Typography variant="body2">url.com</Typography>
+                ) : (
+                  <CreateMeetingLink />
+                )}
+              </Stack>
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <Button variant="outlined">Delete event</Button>
+              </Stack>
+            </Stack>
+            <Stack width="20rem">
               <Typography
                 variant="h6"
                 fontWeight="500"
@@ -47,59 +130,22 @@ const VirtualEvent = () => {
                 width="7rem"
                 color="primary.light"
               >
-                Description:
+                Registrations:
               </Typography>
-              <Typography variant="body2">{event.eventDescription}</Typography>
+              <List sx={{ color: "white" }}>
+                {registrants.map((d) => (
+                  <ListItem>
+                    <ListItemText
+                      primary={d.name}
+                      secondary={d.email}
+                      key={d.email}
+                    />
+                  </ListItem>
+                ))}
+              </List>
             </Stack>
-            <Stack direction="row" justifyContent="flex-start" spacing={2}>
-              <Typography
-                variant="h6"
-                fontWeight="500"
-                component="div"
-                width="7rem"
-                color="primary.light"
-              >
-                Start Date:
-              </Typography>
-              <Typography variant="body2">
-                {new Date(event.startDate).toString()}
-              </Typography>
-            </Stack>
-            <Stack direction="row" justifyContent="flex-start" spacing={2}>
-              <Typography
-                variant="h6"
-                fontWeight="500"
-                component="div"
-                width="7rem"
-                color="primary.light"
-              >
-                End Date:
-              </Typography>
-              <Typography variant="body2">
-                {new Date(event.endDate).toString()}
-              </Typography>
-            </Stack>
-            <Stack direction="row" justifyContent="flex-start" spacing={2}>
-              <Typography
-                variant="h6"
-                fontWeight="500"
-                component="div"
-                width="7rem"
-                color="primary.light"
-              >
-                Event Link:
-              </Typography>
-              {event.eventLink != null ? (
-                <Typography variant="body2">url.com</Typography>
-              ) : (
-                <CreateMeetingLink />
-              )}
-            </Stack>
+            {/* </Paper> */}
           </Stack>
-          <Stack direction="row" justifyContent="flex-start" spacing={2}>
-            <Button variant="outlined">Delete event</Button>
-          </Stack>
-          {/* </Paper> */}
         </Stack>
       )}
     </SignedInLayout>

@@ -14,7 +14,6 @@ const CreateEvent = () => {
   } = useForm();
 
   const startDate = register("startDate");
-  console.log(getValues());
 
   return (
     <Layout>
