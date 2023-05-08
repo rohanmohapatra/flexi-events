@@ -11,3 +11,16 @@ export const getMe = async (token) => {
     return response.data;
   }
 };
+
+export const createProfile = async (token, payload) => {
+  const uri = `${backendApi}/users/createProfile`;
+  const response = await axios.post(uri, payload, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (response.status === 201) {
+    return true;
+  } else {
+    return false;
+  }
+};

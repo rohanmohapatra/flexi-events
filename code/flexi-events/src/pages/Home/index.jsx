@@ -60,7 +60,9 @@ function HomePage() {
             <Button variant="contained" onClick={() => navigate("/signup")}>
               Organizers
             </Button>
-            <Button variant="contained">Attendees</Button>
+            <Button variant="contained" onClick={() => navigate("/attendees")}>
+              Attendees
+            </Button>
           </Box>
         </Grid>
         <Grid item xs={12}>

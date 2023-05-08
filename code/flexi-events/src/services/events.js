@@ -36,3 +36,12 @@ export const getEvents = async (token) => {
     return response.data;
   }
 };
+
+export const getEventsPublic = async () => {
+  const uri = `${backendApi}/events/public`;
+  const response = await axios.get(uri);
+
+  if (response.status === 200) {
+    return response.data;
+  }
+};
