@@ -14,7 +14,6 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogin = async (data) => {
     const token = await login(data);
-    console.log(token);
     if (token) {
       setToken(token);
       localStorage.setItem("auth.token", token);

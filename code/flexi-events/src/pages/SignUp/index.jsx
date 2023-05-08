@@ -177,7 +177,8 @@ function SignUpPage() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              {loading ? "Sign Up" : <CircularProgress />}
+              {/* {loading ? "Sign Up" : <CircularProgress />} */}
+              Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

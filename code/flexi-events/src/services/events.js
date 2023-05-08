@@ -45,3 +45,23 @@ export const getEventsPublic = async () => {
     return response.data;
   }
 };
+
+export const registerParticipant = async (eventId, payload) => {
+  const uri = `${backendApi}/events/${eventId}/participants/register`;
+  const response = await axios.post(uri, payload);
+
+  if (response.data.message == "Registered") {
+    return true;
+  }
+  return false;
+};
+
+export const getRegistrants = async (eventId) => {
+  const uri = `${backendApi}/events/${eventId}/participants`;
+  const response = await axios.get(uri);
+
+  if (response.status === 200) {
+    return response.data;
+  }
+  return [];
+};

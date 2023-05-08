@@ -10,8 +10,9 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SignInToZoom from "components/SignedInLayout/SignInToZoom";
 
-const SignedInLayout = ({ children }) => {
+const SignedInLayout = ({ children, ...rest }) => {
   const pages = ["dashboard", "profile"];
+  const { height } = rest;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ const SignedInLayout = ({ children }) => {
       paddingTop="1rem"
       flexGrow="1"
       sx={{ backgroundColor: "#130303" }}
-      height="100vh"
+      height={height}
       paddingX="10vw"
       spacing={4}
     >

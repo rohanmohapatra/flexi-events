@@ -4,9 +4,11 @@ import { Typography } from "@mui/material";
 import { Button } from "@mui/material";
 import FlexiEventsTitle from "components/FlexiEventsTitle";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "components/AuthProvider/AuthContext";
 
 function HomePage() {
   const navigate = useNavigate();
+  const { getToken } = useAuth();
   return (
     <Stack
       sx={{
@@ -57,7 +59,12 @@ function HomePage() {
           <Box
             sx={{ display: "flex", justifyContent: "center", columnGap: "2vw" }}
           >
-            <Button variant="contained" onClick={() => navigate("/signup")}>
+            <Button
+              variant="contained"
+              onClick={() =>
+                getToken() ? navigate("/dashboard") : navigate("/signup")
+              }
+            >
               Organizers
             </Button>
             <Button variant="contained" onClick={() => navigate("/attendees")}>
