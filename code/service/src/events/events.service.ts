@@ -1,10 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { UUID } from 'types';
 import { EventsRepository } from './events.repository';
+import { UserRepository } from 'users/user.repository';
+import { promises } from 'dns';
 
 @Injectable()
 export class EventsService {
-  constructor(private readonly eventsRepository: EventsRepository) {}
+  constructor(
+    private readonly eventsRepository: EventsRepository,
+    private readonly usersRepository: UserRepository,
+  ) {}
 
   async getEvents(email: string) {
     return await this.eventsRepository.getEvents(email);
@@ -23,6 +28,14 @@ export class EventsService {
   }
 
   async getAllEvents() {
-    return await this.eventsRepository.getAllEvents();
+    const events = await this.eventsRepository.getAllEvents();
+    const promises = events.map(async (event) => {
+      return {
+        ...event,
+        creatorName: (await this.usersRepository.getUserProfile(event.email))
+          .name,
+      };
+    });
+    return await Promise.all(promises);
   }
 }
