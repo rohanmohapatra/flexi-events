@@ -35,6 +35,14 @@ export class EventsRepository implements OnModuleInit {
     return await this.eventMapper.insert(event);
   }
 
+  async addEventLink(eventId: UUID, email: string, eventLink: string) {
+    return await this.eventMapper.update({
+      eventId: eventId,
+      email: email,
+      eventLink: eventLink,
+    });
+  }
+
   async addKeywords(eventId: UUID, email: string, keywords: string[]) {
     const event = await this.getEvent(eventId, email);
     await this.eventMapper.update({
@@ -45,5 +53,9 @@ export class EventsRepository implements OnModuleInit {
 
   async getAllEvents() {
     return await (await this.eventMapper.findAll()).toArray();
+  }
+
+  async deleteEvent(eventId: UUID, email: string) {
+    return await this.eventMapper.remove({ email, eventId });
   }
 }

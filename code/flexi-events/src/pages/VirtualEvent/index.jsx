@@ -10,8 +10,8 @@ import {
 import { useAuth } from "components/AuthProvider/AuthContext";
 import SignedInLayout from "components/SignedInLayout";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getEvent, getRegistrants } from "services/events";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { deleteEvent, getEvent, getRegistrants } from "services/events";
 import { CreateMeetingLink } from "./CreateMeetingLink";
 
 const VirtualEvent = () => {
@@ -25,14 +25,28 @@ const VirtualEvent = () => {
     eventLink: "",
   });
 
+  const [updateEvent, setUpdateEvent] = useState(false);
+  const shouldUpdateEvent = () => setUpdateEvent((updateEvent) => !updateEvent);
+
+  const navigate = useNavigate();
+
   const [registrants, setRegistrants] = useState([]);
   useEffect(() => {
     getEvent(eventId, getToken()).then((eventData) => setEvent(eventData));
-  }, [eventId, getToken]);
+  }, [updateEvent]);
 
   useEffect(() => {
     getRegistrants(eventId).then((data) => setRegistrants(data));
   }, [eventId]);
+
+  const handleDelete = () => {
+    deleteEvent(eventId, getToken()).then((value) => {
+      if (value) {
+        navigate("/dashboard");
+      }
+    });
+  };
+
   return (
     <SignedInLayout height="100vh">
       {event && (
@@ -113,13 +127,20 @@ const VirtualEvent = () => {
                   Event Link:
                 </Typography>
                 {event.eventLink != null ? (
-                  <Typography variant="body2">url.com</Typography>
+                  <Typography variant="body2">
+                    <Link to={event.eventLink}>{event.eventLink}</Link>
+                  </Typography>
                 ) : (
-                  <CreateMeetingLink />
+                  <CreateMeetingLink
+                    eventId={eventId}
+                    shouldUpdateEvent={shouldUpdateEvent}
+                  />
                 )}
               </Stack>
               <Stack direction="row" justifyContent="flex-start" spacing={2}>
-                <Button variant="outlined">Delete event</Button>
+                <Button variant="outlined" onClick={handleDelete}>
+                  Delete event
+                </Button>
               </Stack>
             </Stack>
             <Stack width="20rem">

@@ -65,3 +65,34 @@ export const getRegistrants = async (eventId) => {
   }
   return [];
 };
+
+export const deleteEvent = async (eventId, token) => {
+  const uri = `${backendApi}/events/${eventId}`;
+  const response = await axios.delete(uri, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (response.status === 200) {
+    return true;
+  }
+  return false;
+};
+
+export const createEventMeeting = async (eventId, token, zoomToken) => {
+  const uri = `${backendApi}/events/${eventId}/createMeeting`;
+  const response = await axios.post(
+    uri,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "zoom-auth": `Bearer ${zoomToken}`,
+      },
+    }
+  );
+
+  if (response.status === 201) {
+    return true;
+  }
+  return false;
+};

@@ -7,6 +7,7 @@ import {
   Post,
   UseGuards,
   Request,
+  Delete,
 } from '@nestjs/common';
 import { EventDTO } from 'dto/event.dto';
 import { Keywords } from 'dto/keywords.dto';
@@ -14,6 +15,7 @@ import { UUID } from 'types';
 import { EventsService } from './events.service';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/auth.guard';
+import axios from 'axios';
 
 const isIsoDate = (str) => {
   if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(str)) return false;
@@ -69,6 +71,15 @@ export class EventsController {
   }
 
   @UseGuards(AuthGuard)
+  @Delete(':eventId')
+  deleteEvent(@Param('eventId') eventId: string, @Request() request) {
+    return this.eventsService.deleteEvent(
+      UUID.fromString(eventId),
+      request.user.email,
+    );
+  }
+
+  @UseGuards(AuthGuard)
   @Post(':eventId/addKeywords')
   addKeywords(
     @Param('eventId') eventId: string,
@@ -84,5 +95,11 @@ export class EventsController {
 
   @UseGuards(AuthGuard)
   @Post(':eventId/createMeeting')
-  createMeeting(@Param('eventId') eventId: string, @Request() request) {}
+  async createMeeting(@Param('eventId') eventId: string, @Request() request) {
+    return await this.eventsService.createMeeting(
+      UUID.fromString(eventId),
+      request.user.email,
+      request.headers['zoom-auth'],
+    );
+  }
 }
