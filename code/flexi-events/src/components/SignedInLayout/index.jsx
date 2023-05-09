@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import SignInToZoom from "components/SignedInLayout/SignInToZoom";
 
 const SignedInLayout = ({ children, ...rest }) => {
-  const pages = ["dashboard", "profile"];
+  const pages = ["dashboard", "profile", "aboutus"];
   const { height } = rest;
   const location = useLocation();
   const navigate = useNavigate();
