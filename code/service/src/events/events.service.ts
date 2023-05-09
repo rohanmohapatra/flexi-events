@@ -3,6 +3,7 @@ import { UUID } from 'types';
 import { EventsRepository } from './events.repository';
 import { UserRepository } from 'users/user.repository';
 import { promises } from 'dns';
+import axios from 'axios';
 
 @Injectable()
 export class EventsService {
@@ -25,6 +26,33 @@ export class EventsService {
 
   async addKeywords(eventId: UUID, email: string, keywords: string[]) {
     return await this.eventsRepository.addKeywords(eventId, email, keywords);
+  }
+
+  async deleteEvent(eventId: UUID, email: string) {
+    return await this.eventsRepository.deleteEvent(eventId, email);
+  }
+
+  async createMeeting(eventId: UUID, email: string, zoomAuth: string) {
+    const event = await this.getEvent(eventId, email);
+
+    const uri = `https://api.zoom.us/v2/users/me/meetings`;
+
+    const payload = {
+      topic: event.eventTitle,
+      agenda: event.eventDescription,
+      type: 2,
+      start_time: event.startDate,
+      duration: 40,
+    };
+
+    const response = await axios.post(uri, payload, {
+      headers: { Authorization: zoomAuth },
+    });
+    await this.eventsRepository.addEventLink(
+      eventId,
+      email,
+      response.data.join_url,
+    );
   }
 
   async getAllEvents() {
