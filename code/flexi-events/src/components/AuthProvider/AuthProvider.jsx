@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }) => {
     setToken(undefined);
     localStorage.removeItem("auth.token");
     localStorage.removeItem("zoom.token");
+    localStorage.removeItem("signup.email");
   };
   const getToken = () => {
     const token = localStorage.getItem("auth.token");

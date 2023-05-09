@@ -22,10 +22,9 @@ export class UserController {
     return { message: 'Hello from Users' };
   }
 
-  @UseGuards(AuthGuard)
   @Post('createProfile')
   async createProfile(@Body() userBody: User, @Request() request) {
-    this.userService.addUserProfile({ ...userBody, email: request.user.email });
+    this.userService.addUserProfile(userBody);
     return {
       message: 'Profile created',
     };
