@@ -28,6 +28,7 @@ function SignUpPage() {
     };
     signup(payload).then((value) => {
       setLoading(value);
+      localStorage.setItem("signup.email", payload.email.toString());
       navigate("/createProfile");
     });
   };
