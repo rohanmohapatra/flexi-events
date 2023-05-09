@@ -50,17 +50,13 @@ const AboutUs = () => {
         <Typography sx={{ fontSize:24, color:"#ccccff", mt:2 }} variant="h5" component="h2">
             About Us
             </Typography>
-
-        
-        
-
           
-          <Typography sx={{ fontSize:22, color:"#fff0db", pb:30  }}variant="h5" component="h2">
-          Flexi-Events’ goal is to create a platform where content creators, tech enthusiasts and companies
-can host webinars and virtual conferences with a click of a button. This is a one-stop solution to
-create a single-day/multi-day event, search and register for events and increase your knowledge.
-It will support integrations with various video-conferencing software platforms to make it easy
-for organizers to schedule events.
+          <Typography sx={{ fontSize:22, color:"white", pb:40  }}variant="h5" component="h2">
+            Flexi-Events’ goal is to create a platform where content creators, tech enthusiasts and companies
+            can host webinars and virtual conferences with a click of a button. This is a one-stop solution to
+            create a single-day/multi-day event, search and register for events and increase your knowledge.
+            It will support integrations with various video-conferencing software platforms to make it easy
+            for organizers to schedule events.
           
 
           </Typography>
@@ -69,8 +65,7 @@ for organizers to schedule events.
             On a Nice day in May,2023. The Flexi team presents
             </Typography>
 
-         
-          
+        
 
         </Stack>
       </SignedInLayout>
