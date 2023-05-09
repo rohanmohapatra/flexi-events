@@ -92,9 +92,9 @@ import SignedInLayout from "components/SignedInLayout";
           </Typography>
           </Typography>
 
-          <Typography sx={{ fontSize:22, color:"#ccccff" }} variant="h5" component="h2">
+          <Typography sx={{ fontSize:22, color:"#ccccff" ,pb:30 }} variant="h5" component="h2">
           Pronouns {" : "}
-          <Typography sx={{ fontSize:22, color:"#fff0db" }} variant="h5" component="span">
+          <Typography sx={{ fontSize:22, color:"#fff0db"  }} variant="h5" component="span">
             Pronouns {user.pronouns}
           </Typography>
           </Typography>
