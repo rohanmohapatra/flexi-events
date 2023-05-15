@@ -17,11 +17,25 @@ import {
 import AttendeesLayout from "components/AttendeesLayout";
 import { grey } from "@mui/material/colors";
 import moment from "moment";
-import { getEventsPublic, registerParticipant } from "services/events";
+import {
+  getEventsPublic,
+  registerParticipant,
+  searchEventsPublic,
+} from "services/events";
 import { useForm } from "react-hook-form";
+import SearchBar from "components/SearchBar";
 
 const EventDetails = (props) => {
-  const { eventId, eventTitle, eventDescription, startDate, endDate } = props;
+  const {
+    eventId,
+    eventTitle,
+    eventDescription,
+    startDate,
+    endDate,
+    creatorName,
+  } = props;
+  let { keywords } = props;
+  keywords = keywords ?? [];
   const [open, setOpen] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -62,6 +76,10 @@ const EventDetails = (props) => {
     });
   };
 
+  const truncate = (str, n) => {
+    return str.length > n ? str.slice(0, n - 1) + "..." : str;
+  };
+
   return (
     <>
       <Card
@@ -74,10 +92,11 @@ const EventDetails = (props) => {
           <Stack spacing={2}>
             <Typography
               gutterBottom
-              variant="h5"
+              variant="h6"
               component="div"
               color="black"
               fontWeight="600"
+              height="2rem"
             >
               {eventTitle}
             </Typography>
@@ -89,8 +108,25 @@ const EventDetails = (props) => {
             >
               {creatorName}
             </Typography> */}
-            <Typography variant="body2" color={grey[600]} height="5rem">
-              {eventDescription}
+            <Typography variant="body2" color={grey[600]} height="3.5rem">
+              {truncate(eventDescription, 100)}
+            </Typography>
+            <Stack direction="row" height="2rem">
+              {keywords.map((keyword) => (
+                <Chip
+                  sx={{ color: "white", bgcolor: "primary.dark" }}
+                  label={keyword}
+                  variant="outlined"
+                />
+              ))}
+            </Stack>
+            <Typography
+              variant="body2"
+              color={grey[600]}
+              height="1.5rem"
+              sx={{ fontWeight: "700" }}
+            >
+              Creator: {creatorName}
             </Typography>
             <Stack spacing={1}>
               <Chip
@@ -179,14 +215,40 @@ const EventDetails = (props) => {
 
 function AttendeesPage() {
   const [events, setEvents] = useState([]);
+  const [search, setSearch] = useState("");
   useEffect(() => {
     getEventsPublic().then((events) => {
       setEvents(events);
     });
   }, []);
+  const handleSearch = () => {
+    if (search === "") {
+      handleCancel();
+    }
+    searchEventsPublic(search).then((events) => {
+      setEvents(events);
+    });
+  };
+
+  const handleCancel = () => {
+    getEventsPublic().then((events) => {
+      setEvents(events);
+    });
+  };
   return (
     <AttendeesLayout>
-      <Stack>
+      <Stack spacing={4}>
+        <Stack width="30rem" pl="1rem">
+          <SearchBar
+            // @ts-ignore
+            value={search}
+            onChange={(newValue) => setSearch(newValue)}
+            onRequestSearch={handleSearch}
+            onCancelSearch={handleCancel}
+            cancelOnEscape
+            placeholder="Search..."
+          />
+        </Stack>
         <Grid container spacing={2}>
           {events.map((event) => (
             <Grid item xs={4}>

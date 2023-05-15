@@ -40,6 +40,7 @@ export class EventsController {
       eventId: UUID.random(),
       ...eventDto,
       email: request.user.email,
+      keywords: [],
     };
 
     this.eventsService.addEvent(createdEvent);
@@ -59,6 +60,11 @@ export class EventsController {
   @Get('public')
   async getEventsPublic() {
     return this.eventsService.getAllEvents();
+  }
+
+  @Post('search/public')
+  async getEventsPublicBySearch(@Body() search: { searchString: string }) {
+    return this.eventsService.searchEvents(search.searchString);
   }
 
   @UseGuards(AuthGuard)
@@ -90,6 +96,20 @@ export class EventsController {
       UUID.fromString(eventId),
       request.user.email,
       keywords.keywords,
+    );
+  }
+
+  @UseGuards(AuthGuard)
+  @Post(':eventId/deleteKeyword')
+  deleteKeyword(
+    @Param('eventId') eventId: string,
+    @Body() keyword: { keyword: string },
+    @Request() request,
+  ) {
+    this.eventsService.deleteKeyword(
+      UUID.fromString(eventId),
+      request.user.email,
+      keyword.keyword,
     );
   }
 

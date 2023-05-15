@@ -47,7 +47,16 @@ export class EventsRepository implements OnModuleInit {
     const event = await this.getEvent(eventId, email);
     await this.eventMapper.update({
       eventId: eventId,
-      keywords: event.keywords.concat(keywords),
+      email,
+      keywords: (event.keywords ?? []).concat(keywords),
+    });
+  }
+  async deleteKeyword(eventId: UUID, email: string, keyword: string) {
+    const event = await this.getEvent(eventId, email);
+    await this.eventMapper.update({
+      eventId: eventId,
+      email,
+      keywords: (event.keywords ?? []).filter((k) => k != keyword),
     });
   }
 

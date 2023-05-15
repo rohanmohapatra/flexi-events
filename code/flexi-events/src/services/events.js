@@ -46,11 +46,20 @@ export const getEventsPublic = async () => {
   }
 };
 
+export const searchEventsPublic = async (searchString) => {
+  const uri = `${backendApi}/events/search/public`;
+  const response = await axios.post(uri, { searchString });
+
+  if (response.status === 201) {
+    return response.data;
+  }
+};
+
 export const registerParticipant = async (eventId, payload) => {
   const uri = `${backendApi}/events/${eventId}/participants/register`;
   const response = await axios.post(uri, payload);
 
-  if (response.data.message == "Registered") {
+  if (response.data.message === "Registered") {
     return true;
   }
   return false;
@@ -71,6 +80,38 @@ export const deleteEvent = async (eventId, token) => {
   const response = await axios.delete(uri, {
     headers: { Authorization: `Bearer ${token}` },
   });
+
+  if (response.status === 200) {
+    return true;
+  }
+  return false;
+};
+
+export const addKeyword = async (eventId, token, keyword) => {
+  const uri = `${backendApi}/events/${eventId}/addKeywords`;
+  const response = await axios.post(
+    uri,
+    { keywords: [keyword] },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  if (response.status === 200) {
+    return true;
+  }
+  return false;
+};
+
+export const deleteKeyword = async (eventId, token, keyword) => {
+  const uri = `${backendApi}/events/${eventId}/deleteKeyword`;
+  const response = await axios.post(
+    uri,
+    { keyword },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
 
   if (response.status === 200) {
     return true;
