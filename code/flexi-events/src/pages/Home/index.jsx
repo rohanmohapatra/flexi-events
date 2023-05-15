@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import FlexiEventsTitle from "components/FlexiEventsTitle";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "components/AuthProvider/AuthContext";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -81,7 +82,9 @@ function HomePage() {
               textAlign: "center",
             }}
           >
-            Developers: Rohan Mohapatra, Kwangoh Kang, Wen Yao Ho
+            Created with{" "}
+            <FavoriteIcon sx={{ color: "primary.light", px: "0.3rem" }} /> by
+            Rohan Mohapatra, Kwangoh Kang and Wen Yao Ho
           </Typography>
         </Grid>
       </Grid>
