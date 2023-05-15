@@ -4,6 +4,7 @@ import { EventsRepository } from './events.repository';
 import { UserRepository } from 'users/user.repository';
 import { promises } from 'dns';
 import axios from 'axios';
+import * as extractor from 'keyword-extractor';
 
 @Injectable()
 export class EventsService {
@@ -21,11 +22,24 @@ export class EventsService {
   }
 
   async addEvent(event: any) {
+    if (event.eventDescription) {
+      const keywords = (extractor as any).extract(event.eventDescription, {
+        language: 'english',
+        remove_digits: true,
+        return_changed_case: true,
+        remove_duplicates: true,
+      });
+      event = { ...event, keywords: keywords.slice(0, 5) };
+    }
     return await this.eventsRepository.addEvent(event);
   }
 
   async addKeywords(eventId: UUID, email: string, keywords: string[]) {
     return await this.eventsRepository.addKeywords(eventId, email, keywords);
+  }
+
+  async deleteKeyword(eventId: UUID, email: string, keyword: string) {
+    return await this.eventsRepository.deleteKeyword(eventId, email, keyword);
   }
 
   async deleteEvent(eventId: UUID, email: string) {
@@ -65,5 +79,18 @@ export class EventsService {
       };
     });
     return await Promise.all(promises);
+  }
+
+  async searchEvents(searchString: string) {
+    let events = await this.getAllEvents();
+    events = events.filter((event) => {
+      return (
+        event.eventTitle.toLowerCase().includes(searchString) ||
+        (event.keywords ?? [])
+          .map((keyword) => keyword.toLowerCase())
+          .includes(searchString)
+      );
+    });
+    return events;
   }
 }
