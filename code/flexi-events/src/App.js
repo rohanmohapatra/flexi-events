@@ -15,6 +15,11 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import Login from "pages/Login";
 import Dashboard from "pages/Dashboard";
 import { ProtectedRoute } from "components/AuthProvider/ProtectedRoute";
+import VirtualEvent from "pages/VirtualEvent";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import Profile from "pages/Profile";
+import ZoomAuth from "pages/ZoomAuth";
+import AboutUs from "pages/AboutUs";
 
 function App() {
   return (
@@ -29,6 +34,9 @@ function App() {
           <Route path="createProfile" element={<CreateProfile />}></Route>
           <Route path="createEvent" element={<CreateEvent />}></Route>
           <Route path="login" element={<Login />}></Route>
+          <Route path="profile" element={<Profile />}></Route>
+          <Route path="aboutus" element={<AboutUs />}></Route>
+          <Route path="zoomAuth" element={<ZoomAuth />}></Route>
           <Route
             path="dashboard"
             element={
@@ -36,7 +44,15 @@ function App() {
                 <Dashboard />
               </ProtectedRoute>
             }
-          ></Route>
+          />
+          <Route
+            path="events/:eventId"
+            element={
+              <ProtectedRoute>
+                <VirtualEvent />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </LocalizationProvider>
     </AuthProvider>

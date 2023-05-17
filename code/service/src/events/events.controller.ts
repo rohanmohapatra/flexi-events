@@ -23,10 +23,10 @@ const isIsoDate = (str) => {
 
 @ApiTags('events')
 @Controller('events')
-@UseGuards(AuthGuard)
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
+  @UseGuards(AuthGuard)
   @Post('createEvent')
   createEvent(@Request() request) {
     const eventDto: EventDTO = request.body;
@@ -48,11 +48,18 @@ export class EventsController {
     };
   }
 
+  @UseGuards(AuthGuard)
   @Get('/')
   getEvents(@Request() request) {
     return this.eventsService.getEvents(request.user.email);
   }
 
+  @Get('public')
+  async getEventsPublic() {
+    return this.eventsService.getAllEvents();
+  }
+
+  @UseGuards(AuthGuard)
   @Get(':eventId')
   getEvent(@Param('eventId') eventId: string, @Request() request) {
     return this.eventsService.getEvent(
@@ -61,6 +68,7 @@ export class EventsController {
     );
   }
 
+  @UseGuards(AuthGuard)
   @Post(':eventId/addKeywords')
   addKeywords(
     @Param('eventId') eventId: string,
@@ -73,4 +81,8 @@ export class EventsController {
       keywords.keywords,
     );
   }
+
+  @UseGuards(AuthGuard)
+  @Post(':eventId/createMeeting')
+  createMeeting(@Param('eventId') eventId: string, @Request() request) {}
 }

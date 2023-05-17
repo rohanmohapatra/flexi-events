@@ -1,22 +1,36 @@
-import React from "react";
-import { Box, Grid, TextField, Typography, Button } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  Grid,
+  TextField,
+  Typography,
+  Button,
+  Stack,
+  CircularProgress,
+} from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Container from "@mui/material/Container";
 import FlexiEventsTitle from "components/FlexiEventsTitle";
 import { useNavigate } from "react-router-dom";
+import { signup } from "../../services/auth";
 
 function SignUpPage() {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const payload = {
       email: data.get("email"),
       password: data.get("password"),
+    };
+    signup(payload).then((value) => {
+      setLoading(value);
+      navigate("/createProfile");
     });
   };
-  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -33,12 +47,6 @@ function SignUpPage() {
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         <Grid item xs={12}>
-          {/* <Typography
-            variant="h4"
-            sx={{ display: "flex", justifyContent: "center", color: "#FFFFFF" }}
-          >
-            FLEXI-EVENTS
-          </Typography> */}
           <FlexiEventsTitle variant="h4" />
         </Grid>
         <Grid item xs={12}>
@@ -88,20 +96,15 @@ function SignUpPage() {
         </Grid>
       </Grid>
 
-      <Container component="main" maxWidth="xs">
-        <Box
-          sx={{
-            marginTop: 5,
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            alignItems: "center",
-            bgcolor: "#FFFFFF",
-            padding: 2,
-          }}
-        >
-          <Typography component="h1" variant="h6">
-            SIGN UP
+      <Container component="main" maxWidth="xs" sx={{ paddingTop: "2rem" }}>
+        <Stack alignItems="center">
+          <Typography
+            variant="h4"
+            color="primary.light"
+            fontWeight="600"
+            textAlign="center"
+          >
+            Sign up to join the Awesomeness.
           </Typography>
           <Box
             component="form"
@@ -110,7 +113,7 @@ function SignUpPage() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={1}>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
@@ -130,7 +133,7 @@ function SignUpPage() {
                   name="lastName"
                   autoComplete="family-name"
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
@@ -157,6 +160,7 @@ function SignUpPage() {
                   control={
                     <Checkbox value="allowExtraEmails" color="default" />
                   }
+                  sx={{ color: "white" }}
                   label="By signing up, I agree to the following"
                 />
               </Grid>
@@ -173,17 +177,18 @@ function SignUpPage() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
+              {/* {loading ? "Sign Up" : <CircularProgress />} */}
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </Box>
-        </Box>
+        </Stack>
       </Container>
     </Box>
   );

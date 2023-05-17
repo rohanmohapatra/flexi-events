@@ -1,13 +1,17 @@
 import axios from "axios";
 import { backendApi } from "./constants";
 
-export const createEvent = async (event) => {
+export const createEvent = async (event, token) => {
   const uri = `${backendApi}/events/createEvent`;
   const payload = event;
-  const response = await axios.post(uri, payload);
+  const response = await axios.post(uri, payload, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   if (response.status === 201) {
-    return response.data.eventId;
+    return { type: true, message: response.data.eventId };
+  } else {
+    return { type: false, message: "Could not create event" };
   }
 };
 
@@ -31,4 +35,33 @@ export const getEvents = async (token) => {
   if (response.status === 200) {
     return response.data;
   }
+};
+
+export const getEventsPublic = async () => {
+  const uri = `${backendApi}/events/public`;
+  const response = await axios.get(uri);
+
+  if (response.status === 200) {
+    return response.data;
+  }
+};
+
+export const registerParticipant = async (eventId, payload) => {
+  const uri = `${backendApi}/events/${eventId}/participants/register`;
+  const response = await axios.post(uri, payload);
+
+  if (response.data.message == "Registered") {
+    return true;
+  }
+  return false;
+};
+
+export const getRegistrants = async (eventId) => {
+  const uri = `${backendApi}/events/${eventId}/participants`;
+  const response = await axios.get(uri);
+
+  if (response.status === 200) {
+    return response.data;
+  }
+  return [];
 };

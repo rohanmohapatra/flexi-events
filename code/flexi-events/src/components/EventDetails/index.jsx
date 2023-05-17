@@ -1,29 +1,38 @@
 import React from "react";
-import { Box, Card, CardContent } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent } from "@mui/material";
 import { Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
 
 const EventDetails = (props) => {
-  const { eventTitle, eventDescription, creatorName } = props;
+  const { eventId, eventTitle, eventDescription, creatorName } = props;
+  const navigate = useNavigate();
   return (
-    <Card sx={{ bgcolor: "white" }}>
-      <CardContent>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="div"
-          color="black"
-          fontWeight="600"
-        >
-          {eventTitle}
-        </Typography>
-        <Typography gutterBottom variant="h6" component="div" color={grey[500]}>
-          {creatorName}
-        </Typography>
-        <Typography variant="body2" color={grey[600]}>
-          {eventDescription}
-        </Typography>
-      </CardContent>
+    <Card sx={{ bgcolor: "white", height: "8rem" }} key={eventId}>
+      <CardActionArea onClick={() => navigate(`/events/${eventId}`)}>
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            color="black"
+            fontWeight="600"
+          >
+            {eventTitle}
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="div"
+            color={grey[500]}
+          >
+            {creatorName}
+          </Typography>
+          <Typography variant="h6" noWrap color={grey[600]}>
+            {eventDescription}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 };
