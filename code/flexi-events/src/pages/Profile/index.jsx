@@ -21,7 +21,6 @@ import FlexiEventsTitle from "components/FlexiEventsTitle";
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
-// import { CassandraService } from '../../../../service/src/cassandra/cassandra.service';
 
 import { ThemeProvider, createTheme } from "@mui/material";
 import { getMe } from "services/users";
@@ -34,10 +33,10 @@ import SignedInLayout from "components/SignedInLayout";
 
   const Profile = () => {
     
-    const { getToken } = useAuth();
-    const [user, setUser] = useState({});
-    useEffect(() => {
-      getMe(getToken()).then((userData) => setUser(userData));
+    const { getToken } = useAuth();                               // Get the authentication token from the useAuth() hook
+    const [user, setUser] = useState({});                         // State variable to store user data
+    useEffect(() => {                                     // Fetch user data when the component mounts or when the authentication token changes                    
+      getMe(getToken()).then((userData) => setUser(userData));          //Get user data from getMe API
     }, [getToken]);
     return (
         
