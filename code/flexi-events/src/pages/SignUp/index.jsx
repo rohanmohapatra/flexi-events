@@ -26,8 +26,9 @@ function SignUpPage() {                             // State variable to track l
       email: data.get("email"),                           // Get email value from form
       password: data.get("password"),                     // Get password value from form
     };
-    signup(payload).then((value) => {
-      setLoading(value);                         // Set loading state based on the result of signup function
+    signup(payload).then((value) => {      
+      setLoading(value);          // Set loading state based on the result of signup function
+      localStorage.setItem("signup.email", payload.email.toString());
       navigate("/createProfile");
     });
   };

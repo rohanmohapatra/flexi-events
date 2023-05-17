@@ -46,11 +46,20 @@ export const getEventsPublic = async () => {
   }
 };
 
+export const searchEventsPublic = async (searchString) => {
+  const uri = `${backendApi}/events/search/public`;
+  const response = await axios.post(uri, { searchString });
+
+  if (response.status === 201) {
+    return response.data;
+  }
+};
+
 export const registerParticipant = async (eventId, payload) => {
   const uri = `${backendApi}/events/${eventId}/participants/register`;
   const response = await axios.post(uri, payload);
 
-  if (response.data.message == "Registered") {
+  if (response.data.message === "Registered") {
     return true;
   }
   return false;
@@ -64,4 +73,67 @@ export const getRegistrants = async (eventId) => {
     return response.data;
   }
   return [];
+};
+
+export const deleteEvent = async (eventId, token) => {
+  const uri = `${backendApi}/events/${eventId}`;
+  const response = await axios.delete(uri, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (response.status === 200) {
+    return true;
+  }
+  return false;
+};
+
+export const addKeyword = async (eventId, token, keyword) => {
+  const uri = `${backendApi}/events/${eventId}/addKeywords`;
+  const response = await axios.post(
+    uri,
+    { keywords: [keyword] },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  if (response.status === 200) {
+    return true;
+  }
+  return false;
+};
+
+export const deleteKeyword = async (eventId, token, keyword) => {
+  const uri = `${backendApi}/events/${eventId}/deleteKeyword`;
+  const response = await axios.post(
+    uri,
+    { keyword },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  if (response.status === 200) {
+    return true;
+  }
+  return false;
+};
+
+export const createEventMeeting = async (eventId, token, zoomToken) => {
+  const uri = `${backendApi}/events/${eventId}/createMeeting`;
+  const response = await axios.post(
+    uri,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "zoom-auth": `Bearer ${zoomToken}`,
+      },
+    }
+  );
+
+  if (response.status === 201) {
+    return true;
+  }
+  return false;
 };

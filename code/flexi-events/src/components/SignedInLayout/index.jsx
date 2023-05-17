@@ -9,12 +9,14 @@ import {
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SignInToZoom from "components/SignedInLayout/SignInToZoom";
+import { useAuth } from "components/AuthProvider/AuthContext";
 
 const SignedInLayout = ({ children, ...rest }) => {
   const pages = ["dashboard", "profile", "aboutus"];
   const { height } = rest;
   const location = useLocation();
   const navigate = useNavigate();
+  const { onLogout } = useAuth();
 
   return (
     <Stack
@@ -69,6 +71,26 @@ const SignedInLayout = ({ children, ...rest }) => {
               </Button>
             ))}
             <SignInToZoom />
+            <Button
+              variant="contained"
+              onClick={() => {
+                onLogout();
+                navigate("/login");
+              }}
+              sx={{
+                display: "block",
+                fontWeight: "600",
+                textTransform: "capitalize",
+                borderRadius: "0",
+                paddingY: "0",
+                paddingX: "0.2rem",
+                fontSize: "1.2rem",
+                color: "white",
+                bgcolor: "black",
+              }}
+            >
+              Log Out
+            </Button>
           </Stack>
         </Toolbar>
       </AppBar>
