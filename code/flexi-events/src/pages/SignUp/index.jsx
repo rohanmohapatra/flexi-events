@@ -16,18 +16,18 @@ import FlexiEventsTitle from "components/FlexiEventsTitle";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../services/auth";
 
-function SignUpPage() {
-  const [loading, setLoading] = useState(false);
+function SignUpPage() {                             // State variable to track loading state
+  const [loading, setLoading] = useState(false);    // Function for navigating to different pages
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const data = new FormData(event.currentTarget);       // Get form data
     const payload = {
-      email: data.get("email"),
-      password: data.get("password"),
+      email: data.get("email"),                           // Get email value from form
+      password: data.get("password"),                     // Get password value from form
     };
-    signup(payload).then((value) => {
-      setLoading(value);
+    signup(payload).then((value) => {      
+      setLoading(value);          // Set loading state based on the result of signup function
       localStorage.setItem("signup.email", payload.email.toString());
       navigate("/createProfile");
     });
