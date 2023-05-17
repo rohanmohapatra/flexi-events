@@ -5229,6 +5229,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"keyword-extractor@npm:^0.0.25":
+  version: 0.0.25
+  resolution: "keyword-extractor@npm:0.0.25"
+  checksum: e60cf8bf0a2f111b70a06b7255eab8fdbc349379547e73c4e1501f7d5bb45ecffcc42a5d8400f8f758f1a17afe94a57bd9a04eb81c51a52a913866f628a69a4c
+  languageName: node
+  linkType: hard
+
 "kleur@npm:^3.0.3":
   version: 3.0.3
   resolution: "kleur@npm:3.0.3"
@@ -6224,6 +6231,7 @@ __metadata:
     eslint-config-prettier: "npm:^8.3.0"
     eslint-plugin-prettier: "npm:^4.0.0"
     jest: "npm:29.3.1"
+    keyword-extractor: "npm:^0.0.25"
     prettier: "npm:^2.3.2"
     qs: "npm:^6.11.1"
     reflect-metadata: "npm:^0.1.13"

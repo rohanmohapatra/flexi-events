@@ -38,7 +38,11 @@ const CreateProfile = () => {
     setProfile((p) => ({ ...p, pronouns: event.target.value }));
   };
   const handleSubmit = async () => {
-    const status = await createProfile(getToken(), profile);
+    const status = await createProfile(
+      getToken(),
+      profile,
+      localStorage.getItem("signup.email")
+    );
     if (status) {
       navigate("/login");
     }

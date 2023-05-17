@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   List,
   ListItem,
   ListItemText,
@@ -10,9 +11,16 @@ import {
 import { useAuth } from "components/AuthProvider/AuthContext";
 import SignedInLayout from "components/SignedInLayout";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getEvent, getRegistrants } from "services/events";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  addKeyword,
+  deleteEvent,
+  getEvent,
+  getRegistrants,
+} from "services/events";
 import { CreateMeetingLink } from "./CreateMeetingLink";
+import Chips from "components/Chips";
+import { deleteKeyword } from "../../services/events";
 
 const VirtualEvent = () => {
   const { eventId } = useParams();
@@ -23,19 +31,39 @@ const VirtualEvent = () => {
     startDate: "",
     endDate: "",
     eventLink: "",
+    keywords: [],
   });
+
+  const [updateEvent, setUpdateEvent] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const shouldUpdateEvent = () => setUpdateEvent((updateEvent) => !updateEvent);
+
+  const navigate = useNavigate();
 
   const [registrants, setRegistrants] = useState([]);
   useEffect(() => {
-    getEvent(eventId, getToken()).then((eventData) => setEvent(eventData));
-  }, [eventId, getToken]);
+    getEvent(eventId, getToken()).then((eventData) => {
+      setEvent(eventData);
+      setLoading(false);
+    });
+  }, [updateEvent]);
 
   useEffect(() => {
     getRegistrants(eventId).then((data) => setRegistrants(data));
   }, [eventId]);
+
+  const handleDelete = () => {
+    deleteEvent(eventId, getToken()).then((value) => {
+      if (value) {
+        navigate("/dashboard");
+      }
+    });
+  };
+
   return (
     <SignedInLayout height="100vh">
-      {event && (
+      {loading && <CircularProgress />}
+      {!loading && event && (
         <Stack>
           <Paper
             sx={{
@@ -110,16 +138,45 @@ const VirtualEvent = () => {
                   width="7rem"
                   color="primary.light"
                 >
+                  Keywords:
+                </Typography>
+                <Chips
+                  defaultChips={event.keywords ?? []}
+                  max={6}
+                  placeholder="Add keywords..."
+                  onDelete={async (value) =>
+                    await deleteKeyword(eventId, getToken(), value)
+                  }
+                  onSave={async (value) =>
+                    await addKeyword(eventId, getToken(), value)
+                  }
+                />
+              </Stack>
+              <Stack direction="row" justifyContent="flex-start" spacing={2}>
+                <Typography
+                  variant="h6"
+                  fontWeight="500"
+                  component="div"
+                  width="7rem"
+                  color="primary.light"
+                >
                   Event Link:
                 </Typography>
                 {event.eventLink != null ? (
-                  <Typography variant="body2">url.com</Typography>
+                  <Typography variant="body2">
+                    <Link to={event.eventLink}>{event.eventLink}</Link>
+                  </Typography>
                 ) : (
-                  <CreateMeetingLink />
+                  <CreateMeetingLink
+                    eventId={eventId}
+                    shouldUpdateEvent={shouldUpdateEvent}
+                  />
                 )}
               </Stack>
               <Stack direction="row" justifyContent="flex-start" spacing={2}>
-                <Button variant="outlined">Delete event</Button>
+                <Button variant="outlined" onClick={handleDelete}>
+                  Delete event
+                </Button>
               </Stack>
             </Stack>
             <Stack width="20rem">

@@ -10,9 +10,10 @@ const AttendeesLayout = ({ children }) => {
       paddingTop="1rem"
       flexGrow="1"
       sx={{ backgroundColor: "#130303" }}
-      height="100vh"
+      height="100%"
       paddingX="10vw"
       spacing={4}
+      pb="10rem"
     >
       <AppBar position="static" color="transparent">
         <Toolbar>
