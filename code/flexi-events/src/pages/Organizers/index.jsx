@@ -6,7 +6,7 @@ import { AppBar } from "@mui/material";
 import { Toolbar } from "@mui/material";
 import { Button } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
+// import SearchIcon from "@mui/icons-material/Search";
 import Divider from "@mui/material/Divider";
 import { List, ListItem } from "@mui/material";
 import EventDetails from "components/EventDetails";
@@ -74,7 +74,7 @@ function OrganizersPage() {
             <Button>Settings</Button>
             <Search>
               <SearchIconWrapper>
-                <SearchIcon />
+                {/* <SearchIcon /> */}
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
