@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Post,
   Query,
   Request,
   Res,
@@ -9,20 +10,27 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/auth.guard';
 import { ZoomService } from './zoom.service';
-
 @ApiTags('zoom')
 @Controller('zoom')
 export class ZoomContoller {
-  constructor(private readonly zoomService: ZoomService) {}
+  private redirectUri;
+  constructor(private readonly zoomService: ZoomService) {
+    this.redirectUri = 'http://localhost:4000/zoom/oauthredirect';
+  }
+
+  @UseGuards(AuthGuard)
   @Get('signIn')
-  async signInToZoom(@Request() request, @Res() response) {
-    const uri = `https://zoom.us/oauth/authorize?response_type=code&client_id=${process.env.ZOOM_CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fzoom%2Foauthredirect`;
-    return response.redirect(uri);
+  async signInToZoom(@Request() request) {
+    const [_, token] = request.headers.authorization?.split(' ') ?? [];
+    const uri = `https://zoom.us/oauth/authorize?response_type=code&client_id=${
+      process.env.ZOOM_CLIENT_ID
+    }&redirect_uri=${encodeURIComponent(this.redirectUri)}&state=${token}`;
+    return { redirectUri: uri };
   }
 
   @Get('oauthredirect')
   async oauthRedirect(@Query() query, @Res() response) {
-    const { code } = query;
+    const { code, state } = query;
     const data = await this.zoomService.getZoomAccessToken(code);
     return response.redirect(
       `http://localhost:3000/zoomAuth?accessToken=${data['access_token']}`,

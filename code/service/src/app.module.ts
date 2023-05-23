@@ -8,6 +8,7 @@ import { EventsModule } from './events/events.module';
 import { UserModule } from 'users/user.module';
 import { AuthModule } from 'auth/auth.module';
 import { ZoomModule } from 'zoom/zoom.module';
+import { GoogleModule } from 'google/google.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ZoomModule } from 'zoom/zoom.module';
     UserModule,
     AuthModule,
     ZoomModule,
+    GoogleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

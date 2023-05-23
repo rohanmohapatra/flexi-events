@@ -1,11 +1,13 @@
 import { Button } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 import React from "react";
-import { backendApi } from "services/constants";
+import { useAuth } from "components/AuthProvider/AuthContext";
+import { zoomSignIn } from "services/thirdparty";
 
 const SignInToZoom = () => {
-  const handleClick = () => {
-    window.open(`${backendApi}/zoom/signIn`);
+  const { getToken } = useAuth();
+  const handleClick = async () => {
+    await zoomSignIn(getToken());
   };
   return (
     <Button
